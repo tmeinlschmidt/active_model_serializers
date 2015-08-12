@@ -169,8 +169,13 @@ end
 
 class NameKeyPostSerializer < ActiveModel::Serializer
   attributes :title, :body
-  
+
   has_many :comments
+end
+
+AlternateBlogSerializer = Class.new(ActiveModel::Serializer) do
+  attribute :id
+  attribute :name, key: :title
 end
 
 ActiveModel::Serializer.setup do |config|

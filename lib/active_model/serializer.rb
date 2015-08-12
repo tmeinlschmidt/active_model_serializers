@@ -90,6 +90,14 @@ end
         end
       end
 
+      def attribute(attr, options = {})
+        key = options.fetch(:key, attr)
+        @_attributes.concat [key]
+        define_method key do
+          object.read_attribute_for_serialization(attr)
+        end unless method_defined?(key)
+      end
+
       def has_one(*attrs)
         associate(Association::HasOne, *attrs)
       end
